@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MIDI文件上传</title>
+  <title>MIDI文件上传与播放</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -52,15 +52,23 @@
       text-align: center;
       color: #666;
     }
+
+  .audio-player {
+      margin-top: 20px;
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
   <div class="upload-container">
-    <h1>上传MIDI文件</h1>
+    <h1>上传并播放MIDI文件</h1>
     <input type="file" id="mid-file-upload" style="display: none;">
     <button class="upload-button" onclick="document.getElementById('mid-file-upload').click()">选择MIDI文件</button>
     <p class="file-name" id="file-name-display"></p>
+    <div class="audio-player">
+      <audio id="mid-player" controls></audio>
+    </div>
   </div>
 
   <script>
@@ -68,8 +76,19 @@
       const file = this.files[0];
       if (file) {
         document.getElementById('file-name-display').textContent = '已选择文件: '+ file.name;
-        // 这里可以添加代码将文件发送到服务器端
-        console.log('上传的文件:', file);
+
+        const reader = new FileReader();
+        reader.onloadend = function () {
+          const blob = new Blob([reader.result], { type: 'audio/midi' });
+          const url = URL.createObjectURL(blob);
+          const audioPlayer = document.getElementById('mid-player');
+          audioPlayer.src = url;
+          audioPlayer.play();
+        };
+
+        if (file) {
+          reader.readAsArrayBuffer(file);
+        }
       }
     });
   </script>
