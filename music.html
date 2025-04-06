@@ -1,98 +1,16 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MIDI文件上传与播放</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
-
-  .upload-container {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      width: 300px;
-    }
-
-    h1 {
-      color: #333;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-  .upload-button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      background-color: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 3px;
-      text-align: center;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-  .upload-button:hover {
-      background-color: #0056b3;
-    }
-
-  .file-name {
-      margin-top: 10px;
-      text-align: center;
-      color: #666;
-    }
-
-  .audio-player {
-      margin-top: 20px;
-      text-align: center;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="upload-container">
-    <h1>上传并播放MIDI文件</h1>
-    <input type="file" id="mid-file-upload" style="display: none;">
-    <button class="upload-button" onclick="document.getElementById('mid-file-upload').click()">选择MIDI文件</button>
-    <p class="file-name" id="file-name-display"></p>
-    <div class="audio-player">
-      <audio id="mid-player" controls></audio>
-    </div>
-  </div>
-
-  <script>
-    document.getElementById('mid-file-upload').addEventListener('change', function () {
-      const file = this.files[0];
-      if (file) {
-        document.getElementById('file-name-display').textContent = '已选择文件: '+ file.name;
-
-        const reader = new FileReader();
-        reader.onloadend = function () {
-          const blob = new Blob([reader.result], { type: 'audio/midi' });
-          const url = URL.createObjectURL(blob);
-          const audioPlayer = document.getElementById('mid-player');
-          audioPlayer.src = url;
-          audioPlayer.play();
-        };
-
-        if (file) {
-          reader.readAsArrayBuffer(file);
-        }
-      }
-    });
-  </script>
-
-</body>
+<!DOCTYPE html> 
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>视频展示网站</title> 
+  </head> 
+  
+  <body> 
+    <video width="320" height="240" controls> 
+      <source src="4月6日（3）.mp4" type="video/mp4"> 
+      <!-- 可添加其他视频格式的 source 标签，如ogg、webm等 --> 
+    </video> 
+  </body> 
 
 </html>
